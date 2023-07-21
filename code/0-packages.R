@@ -33,7 +33,7 @@ mapviewOptions(
 library(exactextractr)
 library(leafsync)
 
-sensorList<-read.csv("~/Documents/CoBRA-ECA/data/sensor data/CoBRA SENSORS LIST.csv")
+sensorList<-read.csv("~/Documents/GitHub/ORNL-CoBRA-ECA/sensor data/CoBRA SENSORS LIST.csv")
 
 # functions 
 theme_mb1 <- function() {  # this for all the elements common across plots
@@ -62,24 +62,9 @@ theme_mb1 <- function() {  # this for all the elements common across plots
   
 }
 
-labels <- c(Cl = "Chloride (ppm)", 
-            SO4 = "Sulfate (ppm)", 
-            old = "Old Transect", 
-            young = "Young Transect", 
-            Fe_II = "Fe(II) (ppm)", 
-            "2022" = "Nov 2022", 
-            "2023" = "March 2023",
-            ORP = "ORP (mV)", 
-            pH = "pH", 
-            SpC = "Conductivity (uS/cm)", 
-            temp = "Temperature (C)",
-            Mn = "Mn (ppm)",
-            Fe = "Fe (ppm)",
-            P = "P (ppm)",
-            Mg = "Mg (ppm)",
-            Ca = "Ca (ppm)",
-            K = "K (ppm)",
-            Na = "Na (ppm)",
-            Al= "Al (ppm)",
-            DOC = "DOC (ppm)",
-            DIC= "DIC (ppm)")
+
+#Define Color Scheme
+##############################################
+colors_old <- c("1" = "#C85E6D", "2" = "#EDA150", "3" = "#F4CA4E", "4" = "#6811A2", "5" = "#3F0898", "6" = "#0B0780")
+colors_young <- c("1" = "#C85E6D", "2" = "#F4CA4E", "3" = "#6811A2", "4" = "#0B0780")
+##############################################

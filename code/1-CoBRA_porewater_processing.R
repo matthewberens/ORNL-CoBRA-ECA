@@ -5,14 +5,14 @@
 #############################################
 
 #Load libraries and set directory
-setwd("~/Documents/CoBRA-ECA")
+setwd("~/Documents/GitHub/ORNL-CoBRA-ECA")
 
 #load packages
 source("code/0-packages.R")
 
 # Step 1. Load Data ---------------------------------------------------------------------
 
-sampling_data = read.csv("data/porewater/CoBRA_porewater_July2023.csv") 
+sampling_data = read.csv("porewater data/raw/CoBRA_porewater_July2023.csv") 
 
 
 
@@ -51,18 +51,20 @@ data_transform <- sampling_data %>%
 # Step 5. Determine detection limit flags -----------------------------------------------
 
 #Read in instrument detection limits
-CoBRA_ddl = read.csv("data/porewater/CoBRA DETECTION LIMITS.csv") 
+CoBRA_ddl = read.csv("porewater data/raw/CoBRA DETECTION LIMITS.csv")  
 
 #Merge ddls with analytical results and determine if flagged
 data_LOD <- left_join(data_transform, CoBRA_ddl, by = "parameter") %>%
   mutate(detection_FLAG = ifelse(parameter %in% c("pH", "temp", "SpC", "depth", "ORP"), "NONE",
                           ifelse(result_value < ddl, "<", "NONE")),
-         result_value = ifelse(detection_FLAG == "<", ddl/2, result_value))
+         instrument = ifelse(is.na(instrument), "Probe", instrument),
+         result_value = ifelse(detection_FLAG == "<", ddl/2, 
+                        ifelse(instrument == "ICP-MS", result_value/1000, result_value)))
 
 # Step 6. Export processed data as csv --------------------------------------------------
 
 #Save formatted data as a .csv
-write.csv(data_LOD, "data/porewater/processed/CoBRA POREWATER_July2023.csv", row.names = FALSE)
+write.csv(data_LOD, "porewater data/processed/CoBRA POREWATER_July2023.csv", row.names = FALSE)
   
 
 
