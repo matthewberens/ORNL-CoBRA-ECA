@@ -12,7 +12,7 @@ source("code/0-packages.R")
 
 # Step 1. Load Data ---------------------------------------------------------------------
 
-sampling_data = read.csv("porewater data/processed/CoBRA POREWATER_Mar2023.csv") 
+sampling_data = read.csv("porewater data/processed/CoBRA POREWATER_July2023.csv") 
 
 
 ######################################
@@ -42,14 +42,13 @@ wl_all %>%
 ### OLD TRANSECT PLOTS ######
 sampling_data %>%
   subset(transect != "blank") %>%
-  subset(parameter %in% c("SpC", "pH", "ORP", "Fe_II")) %>%
+  subset(parameter %in% c("SpC", "pH", "ORP", "Fe_II", "DIC")) %>%
   ggplot(aes(y=depth, x=result_value)) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "Blue") +
   geom_point(aes(fill=as.factor(plot)), shape=21, size = 3) +
   labs(y = "Depth (cm)", x = NULL, fill = "Plot") +
   facet_grid(transect~parameter, 
-             scales = "free",
-             labeller = as_labeller(labels)) +
+             scales = "free") +
   theme_mb1() +
   scale_y_reverse() +
   #cale_x_continuous(position = "top") +
