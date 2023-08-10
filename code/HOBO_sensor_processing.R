@@ -5,10 +5,10 @@
 #############################################
 
 #Load libraries and packages
-source("~/Documents/CoBRA-ECA/code/0-packages.R")
+source("~/Documents/GitHub/ORNL-CoBRA-ECA/code/0-packages.R")
 
 #Set directory to sensor of interest
-setwd("~/Documents/CoBRA-ECA/data/sensor data/July2023_SpC")
+setwd("~/Documents/GitHub/ORNL-CoBRA-ECA/sensor data/July2023_WL")
 
 
 
@@ -18,18 +18,19 @@ rawdata <- do.call(rbind, lapply(dir(),read.csv)) #Load individual data sets for
 head(rawdata)
 
 
-
 # Step 2. Set names of data columns  ----------------------------------------------------
 
 #Run this line for conductivity
 names(rawdata)<-c("sampleNo","DateTime","result_value", "temp","sensorID")
-rawdata <- rawdata %>%  relocate(temp, .before = result_value) #Move the temp data before probe measurement
 
-
-#Run these lines for pH
+#Run this lines for pH
 names(rawdata)<-c("sampleNo","DateTime", "temp", "mV", "result_value","sensorID")
 
+#Run this lines for Water Leve
+names(rawdata)<-c("sampleNo","DateTime", "result_value", "temp", "sensorID")
 
+
+rawdata <- rawdata %>%  relocate(temp, .before = result_value) #Move the temp data before probe measurement
 head(rawdata) #Double check data frame structure
 
 
@@ -41,7 +42,7 @@ head(sensor_data ) #Double check data frame structure
 
 
 
-# Step 3. Format Date and Time  ---------------------------------------------------------
+# Step 4. Format Date and Time  ---------------------------------------------------------
 sensor_data <- sensor_data %>%
   mutate(Date_formatted = mdy_hm(DateTime),
          Year = year(Date_formatted),
@@ -50,13 +51,13 @@ sensor_data <- sensor_data %>%
 
 head(sensor_data) #Double check column names are correct
 
-# Step 3. Visually check data ---------------------------------------------------------
+# Step 5. Visually check data ---------------------------------------------------------
 ggplot(sensor_data,aes(x=Date_formatted,y=result_value, color=tidal)) +
   geom_line()+
-  facet_wrap(~transect) +
+  facet_wrap(~transect, scales = "free_y") +
   theme_mb1()
 
-# Step 4. Create raw metadata table ---------------------------------------------------------
+# Step 6. Create raw metadata table ---------------------------------------------------------
 metadata<-ddply(na.omit(sensor_data),c("sensorID","transect","plot", "tidal"), dplyr::summarise,
                 start_dateTime=min(Date_formatted),
                 end_dateTime = max(Date_formatted),
@@ -73,9 +74,12 @@ metadata<-ddply(na.omit(sensor_data),c("sensorID","transect","plot", "tidal"), d
 
 
 #Output metadata to the directory
-write.csv(metadata,"~/Documents/CoBRA-ECA/data/sensor data/processed/metadata_July2023_SpC.csv",row.names = F)
+write.csv(sensor_data,"~/Documents/GitHub/ORNL-CoBRA-ECA/sensor data/processed/processed_July2023_pH.csv",row.names = F)
 
-write.csv(sensor_data,"~/Documents/CoBRA-ECA/data/sensor data/processed/processed_May2023_pH.csv",row.names = F)
+
+
+
+write.csv(sensor_data,"~/Documents/CoBRA-ECA/data/sensor data/processed/processed_July2023_SpC.csv",row.names = F)
 
 
 may <- read.csv("~/Documents/CoBRA-ECA/data/sensor data/output/processed_May2023_SpC.csv")

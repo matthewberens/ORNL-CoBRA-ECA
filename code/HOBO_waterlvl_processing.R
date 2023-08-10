@@ -7,8 +7,7 @@ library(magrittr)
 library(dplyr)
 
 #Data input of 2023 HOBO pH/Temp measurements
-setwd("~/Documents/CoBRA-ECA/data/HOBO_waterlvl/20230508_waterlvl")
-
+setwd("~/Documents/GitHub/ORNL-CoBRA-ECA/sensor data/May2023_WL")
 # Get the file names but exclude the sensor list
 file_names <- dir()[!dir() %in% c("20230508_waterlvl_sensorlist.csv", "output")]
 

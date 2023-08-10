@@ -12,7 +12,7 @@ source("code/0-packages.R")
 
 # Step 1. Load Data ---------------------------------------------------------------------
 
-sampling_data = read.csv("porewater data/processed/CoBRA POREWATER_July2023.csv") 
+sampling_data = read.csv("porewater data/processed/CoBRA POREWATER_Mar2023.csv") 
 
 
 ######################################
@@ -25,7 +25,7 @@ wl_all <- rbind(relative_wl_July2023, relative_wl_Mar2023) %>%
          month = lubridate::month(date, label = TRUE))
 
 wl_all %>%
-  ggplot(aes(x = plot, y = -depth)) +
+  ggplot(aes(x = distance, y = -depth)) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "Blue") +
   geom_point()+
   theme_mb1() +
@@ -55,12 +55,6 @@ sampling_data %>%
   #scale_fill_manual(values = colors_young) +
   #scale_color_manual(values = colors_young) +
   expand_limits(x = 0)
-
-
-
-
-
-
 
 
 
