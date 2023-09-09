@@ -4,6 +4,7 @@
 
 # packages
 library(tidyverse)
+library(viridis)
 library(ggthemes)
 library(stats)
 library(cowplot)
@@ -26,7 +27,7 @@ sensorList<-read.csv("~/Documents/GitHub/ORNL-CoBRA-ECA/sensor data/CoBRA SENSOR
 # functions 
 theme_mb1 <- function() {  # this for all the elements common across plots
   theme_bw() %+replace%
-    theme(legend.position = "top",
+    theme(legend.position = "right",
           legend.key=element_blank(),
           #legend.title = element_blank(),
           legend.text = element_text(size = 12),
@@ -34,7 +35,7 @@ theme_mb1 <- function() {  # this for all the elements common across plots
           panel.border = element_rect(color="black",size=2, fill = NA),
           panel.grid = element_blank(),
           
-          plot.title = element_text(hjust = 0.5, size = 14),
+          plot.title = element_text(hjust = 0.5, size = 12),
           plot.subtitle = element_text(hjust = 0.5, size = 12, lineheight = 1.5),
           axis.text = element_text(size = 12, color = "black"),
           axis.title = element_text(size = 12, face = "bold", color = "black"),
@@ -49,11 +50,3 @@ theme_mb1 <- function() {  # this for all the elements common across plots
     )
   
 }
-
-
-#Define Color Scheme
-##############################################
-colors_old <- c("1" = "#C85E6D", "2" = "#EDA150", "3" = "#F4CA4E", "4" = "#6811A2", "5" = "#3F0898", "6" = "#0B0780")
-colors_young <- c("1" = "#C85E6D", "2" = "#F4CA4E", "3" = "#6811A2", "4" = "#0B0780")
-colors_depth<- c("0" = "#C85E6D", "10" = "#EDA150", "20" = "#F4CA4E", "30" = "#6811A2", "40" = "#3F0898")
-##############################################
