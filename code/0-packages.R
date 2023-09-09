@@ -16,22 +16,10 @@ library(ggExtra)
 library(stringi)
 library(sf)
 library(raster)
-library(nhdplusTools)
-library(FedData)
+library(reshape2)
 library(magrittr)
 library(mapview)
 library(ggnewscale)
-mapviewOptions(
-  basemaps = c("CartoDB.Positron", "OpenTopoMap", "Esri.WorldImagery", "Esri.WorldShadedRelief"),
-  homebutton = FALSE,
-  query.position = "topright",
-  query.digits = 2,
-  query.prefix = "",
-  legend.pos = "bottomright"
-)
-
-library(exactextractr)
-library(leafsync)
 
 sensorList<-read.csv("~/Documents/GitHub/ORNL-CoBRA-ECA/sensor data/CoBRA SENSORS LIST.csv")
 

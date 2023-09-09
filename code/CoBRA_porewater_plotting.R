@@ -35,7 +35,7 @@ wl_all %>%
   facet_wrap(transect~month, 
              nrow=2, 
              scales = "free_x") +
-  labs(y = "Relative water level (cm)", x = "Distance (m)") +
+  labs(y = "Relative water level (cm)", x = "Distance (m)") 
   theme(aspect.ratio = 0.5)
 
 
@@ -43,20 +43,23 @@ wl_all %>%
 
 
 ### OLD TRANSECT PLOTS ######
-rbind(sampling_data_July, sampling_data_Mar) %>%
+rbind(sampling_data_July) %>%
+  #subset(transect == "old") 
   subset(transect != "blank") %>%
-  subset(parameter %in% c("pH")) %>%
+  #subset(parameter %in% c( "Ca", "SpC", "ORP", "Cl", "SO4")) %>%
+  #subset(parameter %in% c("Fe_OES", "Fe_II", "DOC", "DIC")) %>%
+  subset(parameter == "temp") %>%
   ggplot(aes(y=depth, x=result_value)) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "Blue") +
   geom_point(aes(fill=as.factor(plot)), shape=21, size = 3) +
   labs(y = "Depth (cm)", x = NULL, fill = "Plot") +
-  facet_grid(transect~parameter, 
-             scales = "free") +
+  facet_wrap(transect~parameter, 
+             scales = "free", ncol = 5) +
   theme_mb1() +
   scale_y_reverse() +
-  #cale_x_continuous(position = "top") +
-  #scale_fill_manual(values = colors_young) +
-  #scale_color_manual(values = colors_young) +
+  #scale_x_continuous(position = "top") +
+  scale_fill_manual(values = colors_young) +
+  scale_color_manual(values = colors_young) 
   expand_limits(x = 0)
 
 
