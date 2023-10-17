@@ -15,14 +15,14 @@ library(knitr)
 library(reshape2)
 library(ggExtra)
 library(stringi)
-library(sf)
 library(raster)
 library(reshape2)
 library(magrittr)
-library(mapview)
 library(ggnewscale)
+library(metR)
+library(PNWColors)
 
-sensorList<-read.csv("~/Documents/GitHub/ORNL-CoBRA-ECA/sensor data/CoBRA SENSORS LIST.csv")
+#sensorList<-read.csv("~/Documents/GitHub/ORNL-CoBRA-ECA/sensor data/CoBRA SENSORS LIST.csv")
 
 # functions 
 theme_mb1 <- function() {  # this for all the elements common across plots
@@ -32,7 +32,7 @@ theme_mb1 <- function() {  # this for all the elements common across plots
           #legend.title = element_blank(),
           legend.text = element_text(size = 12),
           legend.key.size = unit(1.5, 'lines'),
-          panel.border = element_rect(color="black",size=2, fill = NA),
+          panel.border = element_rect(color="black",size=1, fill = NA),
           panel.grid = element_blank(),
           
           plot.title = element_text(hjust = 0.5, size = 12),
